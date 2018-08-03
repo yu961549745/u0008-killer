@@ -53,7 +53,7 @@ public class App {
     }
 
     private void replaceFile(File file) {
-        System.out.println(file.getAbsolutePath());
+        System.out.println(file.getPath());
         FileReplacer replacer = new FileReplacer(file.getAbsolutePath(), config.charset);
         replacer.replaceFile();
     }
@@ -75,7 +75,7 @@ public class App {
         if (file.isDirectory()) {
             if (needSearchFolder(file)) {
                 for (File f : file.listFiles()) {
-                    replaceFile(f);
+                    recursiveReplace(f);
                 }
             }
         } else {

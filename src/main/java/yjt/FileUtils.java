@@ -21,9 +21,14 @@ public class FileUtils {
     public static String readFile(InputStream inputStream, String charset) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, charset));
         StringBuffer buffer = new StringBuffer();
+        boolean isFirstLine = true;
         while (reader.ready()) {
+            if (isFirstLine) {
+                isFirstLine = false;
+            } else {
+                buffer.append(System.lineSeparator());
+            }
             buffer.append(reader.readLine());
-            buffer.append(System.lineSeparator());
         }
         reader.close();
         return buffer.toString();
