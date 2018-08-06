@@ -53,9 +53,8 @@ public class App {
     }
 
     private void replaceFile(File file) {
-        System.out.println(file.getPath());
         FileReplacer replacer = new FileReplacer(file.getAbsolutePath(), config.charset);
-        replacer.replaceFile();
+        System.out.println(file.getPath() + " -> " + replacer.replaceFile());
     }
 
     private boolean needReplaceHidden(File file) {

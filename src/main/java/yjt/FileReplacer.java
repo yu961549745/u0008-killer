@@ -1,6 +1,8 @@
 package yjt;
 
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author yjt
@@ -15,14 +17,22 @@ public class FileReplacer {
         this.charset = charset;
     }
 
-    public void replaceFile() {
+    private static Pattern pattern = Pattern.compile("\\u0008");
+
+    public int replaceFile() {
+        int count = 0;
         try {
             String content = FileUtils.readFile(path, charset);
+            Matcher matcher = pattern.matcher(content);
+            while (matcher.find()) {
+                count++;
+            }
             content = content.replaceAll("\\u0008", "");
             FileUtils.writeFile(path, charset, content);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return count;
     }
 
 }
