@@ -1,10 +1,11 @@
 package yjt;
 
-import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * 进行文件内 u0008 字符替换和计数
+ *
  * @author yjt
  * @date 2018/08/03
  */

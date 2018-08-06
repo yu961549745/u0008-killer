@@ -3,6 +3,8 @@ package yjt;
 import java.io.*;
 
 /**
+ * 进行文件读写相关操作
+ *
  * @author yjt
  * @date 2018/08/03
  */

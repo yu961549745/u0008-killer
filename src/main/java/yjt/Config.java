@@ -1,6 +1,8 @@
 package yjt;
 
 /**
+ * 配置对象, 包含默认配置
+ *
  * @author yjt
  * @date 2018/08/03
  */
