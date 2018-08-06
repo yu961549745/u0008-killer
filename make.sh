@@ -1,1 +1,0 @@
-cp target/u0008-1.0-SNAPSHOT.jar ~/Desktop/envs/u0008-1.0-SNAPSHOT.jar
