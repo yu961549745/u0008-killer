@@ -85,6 +85,7 @@ public class App {
     }
 
     public void run() {
+        System.out.println("u0008 run in " + new File(".").getAbsolutePath());
         if (config == null) {
             System.out.println(helpString);
             return;
