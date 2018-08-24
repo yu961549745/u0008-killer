@@ -1,5 +1,10 @@
 package yjt;
 
+import net.sourceforge.argparse4j.ArgumentParsers;
+import net.sourceforge.argparse4j.inf.ArgumentParser;
+import net.sourceforge.argparse4j.inf.ArgumentParserException;
+import net.sourceforge.argparse4j.inf.Namespace;
+
 import java.io.File;
 
 /**
@@ -8,48 +13,10 @@ import java.io.File;
  * @author yjt
  */
 public class App {
-    private Config config = null;
-    private String helpString;
+    private Config config;
 
-    public App(String[] args) throws Exception {
-        helpString = FileUtils.readFile(Thread.currentThread().getContextClassLoader().getResourceAsStream("help.txt"),
-            "utf8");
-        config = parseArgs(args);
-    }
-
-    private Config parseArgs(String[] args) {
-        Config config = new Config();
-        for (String arg : args) {
-            if (arg.startsWith("-r")) {
-                if (!arg.matches("-r(=(on|off))?")) {
-                    return null;
-                }
-                config.searchRecursive = arg.matches("-r(=on)?");
-            } else if (arg.startsWith("-h")) {
-                if (!arg.matches("-h(=(on|off))?")) {
-                    return null;
-                }
-                config.replaceHidden = arg.matches("-e=(on)?");
-            } else if (arg.startsWith("-c")) {
-                config.charset = arg.substring(3);
-            } else if (arg.startsWith("-ext")) {
-                String extensions = arg.substring(5);
-                if (!extensions.matches("\\w+(\\|\\w+)*")) {
-                    return null;
-                }
-                config.replaceFileExtensions = extensions;
-            } else {// 只有一个冗余参数作为 folder
-                if (config.folder == null) {
-                    config.folder = arg;
-                } else {
-                    return null;
-                }
-            }
-        }
-        if (config.folder == null) {
-            return null;
-        }
-        return config;
+    public App(Config config) {
+        this.config = config;
     }
 
     private void replaceFile(File file) {
@@ -86,10 +53,6 @@ public class App {
 
     public void run() {
         System.out.println("u0008 run in " + new File(".").getAbsolutePath());
-        if (config == null) {
-            System.out.println(helpString);
-            return;
-        }
         File rootFolder = new File(config.folder);
         for (File file : rootFolder.listFiles()) {
             recursiveReplace(file);
@@ -97,7 +60,33 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
-        App app = new App(args);
+        App app = new App(parseArgs(args));
         app.run();
+    }
+
+    public static Config parseArgs(String[] args) {
+        ArgumentParser parser = ArgumentParsers.newFor("u0008").build().defaultHelp(true).description(
+            "remove \\u0008 in the text file(s).");
+        parser.addArgument("-r").choices("y", "n").setDefault("y").help("search file recursively");
+        parser.addArgument("-rh").choices("y", "n").setDefault("n").help("replace hidden files");
+        parser.addArgument("-c").setDefault("utf-8").help("charset of input file(s)");
+        parser.addArgument("-ext").help("指定需要替换的文件的后缀名, 用 | 连接, 比如 'md' 或 'md|java', 默认替换所有文件");
+        parser.addArgument("folder").help("root search folder");
+
+        Namespace ns = null;
+        try {
+            ns = parser.parseArgs(args);
+        } catch (ArgumentParserException e) {
+            parser.printHelp();
+            System.exit(0);
+        }
+        Config config = new Config();
+        config.searchRecursive = ns.getString("r").equals("y");
+        config.replaceHidden = ns.getString("rh").equals("y");
+        config.charset = ns.getString("c");
+        config.replaceFileExtensions = ns.getString("ext");
+        config.folder = ns.getString("folder");
+
+        return config;
     }
 }

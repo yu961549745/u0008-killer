@@ -17,8 +17,8 @@ public class AppTest {
 
     @Test
     public void testRun() throws Exception {
-        String[] args = {"-r", "-h=off", "-c=utf8", "-ext=test", "."};
-        App app = new App(args);
+        String[] args = {"-r", "n", "-c", "utf-8", "-ext", "test", "."};
+        App app = new App(App.parseArgs(args));
         app.run();
     }
 
