@@ -18,8 +18,8 @@ public class AppTest {
     @Test
     public void testRun() throws Exception {
         String[] args = {"-r", "n", "-c", "utf-8", "-ext", "test", "."};
-        App app = new App(App.parseArgs(args));
-        app.run();
+        Replacer replacer = new Replacer(App.parseArgs(args));
+        replacer.run();
     }
 
     @After
