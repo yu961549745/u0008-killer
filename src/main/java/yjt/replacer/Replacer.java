@@ -1,4 +1,6 @@
-package yjt;
+package yjt.replacer;
+
+import yjt.argparser.Config;
 
 import java.io.File;
 

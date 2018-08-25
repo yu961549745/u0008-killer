@@ -1,4 +1,4 @@
-package yjt;
+package yjt.replacer;
 
 import java.io.*;
 

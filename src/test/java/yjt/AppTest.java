@@ -3,6 +3,10 @@ package yjt;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import yjt.argparser.ArgParser4jImpl;
+import yjt.argparser.Parser;
+import yjt.replacer.FileUtils;
+import yjt.replacer.Replacer;
 
 import java.io.File;
 
@@ -17,8 +21,9 @@ public class AppTest {
 
     @Test
     public void testRun() throws Exception {
+        Parser parser = new ArgParser4jImpl();
         String[] args = {"-r", "n", "-c", "utf-8", "-ext", "test", "."};
-        Replacer replacer = new Replacer(App.parseArgs(args));
+        Replacer replacer = new Replacer(parser.parseArgs(args));
         replacer.run();
     }
 
