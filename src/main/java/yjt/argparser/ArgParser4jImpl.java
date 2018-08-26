@@ -32,7 +32,7 @@ public class ArgParser4jImpl implements Parser {
             ns = parser.parseArgs(args);
         } catch (ArgumentParserException e) {
             System.out.println(e.getMessage());
-            parser.printHelp();
+            printUsage();
             System.exit(1);
         }
         Config config = new Config();

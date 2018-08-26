@@ -14,7 +14,6 @@ public class App {
 
     public static void main(String[] args) {
         run(new ArgParser4jImpl(), args);
-        //run(new Args4jImpl(), args);
     }
 
     public static void run(Parser parser, String[] args) {
