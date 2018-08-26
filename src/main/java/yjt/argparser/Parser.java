@@ -11,4 +11,9 @@ public interface Parser {
      * @return
      */
     Config parseArgs(String[] args);
+
+    /**
+     * 输出使用帮助
+     */
+    void printUsage();
 }

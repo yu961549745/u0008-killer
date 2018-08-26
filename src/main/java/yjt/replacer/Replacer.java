@@ -29,7 +29,7 @@ public class Replacer {
     }
 
     private boolean needSearchFolder(File file) {
-        return config.searchRecursive && needReplaceHidden(file);
+        return config.recursive && needReplaceHidden(file);
     }
 
     private void recursiveReplace(File file) {

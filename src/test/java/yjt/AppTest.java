@@ -20,11 +20,9 @@ public class AppTest {
     }
 
     @Test
-    public void testRun() throws Exception {
-        Parser parser = new ArgParser4jImpl();
-        String[] args = {"-r", "n", "-c", "utf-8", "-ext", "test", "."};
-        Replacer replacer = new Replacer(parser.parseArgs(args));
-        replacer.run();
+    public void testRun() {
+        String[] args = {"-c=utf-8", "-ext", "test", "."};
+        App.run(new ArgParser4jImpl(), args);
     }
 
     @After

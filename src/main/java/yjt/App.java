@@ -1,7 +1,6 @@
 package yjt;
 
 import yjt.argparser.ArgParser4jImpl;
-import yjt.argparser.Args4JImpl;
 import yjt.argparser.Config;
 import yjt.argparser.Parser;
 import yjt.replacer.Replacer;
@@ -15,6 +14,7 @@ public class App {
 
     public static void main(String[] args) {
         run(new ArgParser4jImpl(), args);
+        //run(new Args4jImpl(), args);
     }
 
     public static void run(Parser parser, String[] args) {

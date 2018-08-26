@@ -19,4 +19,12 @@ public class GsonToString {
     public String toString() {
         return gson.toJson(this);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof GsonToString)) {
+            return false;
+        }
+        return this.toString().equals(obj.toString());
+    }
 }
